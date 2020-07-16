@@ -13,7 +13,7 @@ protocol BrowserDelegate : class {
     func foundEndpoint(endPoint: NWEndpoint)
 }
 
-
+// Search for compatible devices in local network with bonjour services
 class Browser {
     
     weak var delegate : BrowserDelegate?
@@ -26,11 +26,11 @@ class Browser {
 
         browser = NWBrowser(for: .bonjour(type: "_test._tcp",
                                               domain: "local"), using: params)
-
+        
         browser.stateUpdateHandler = { newState in
             switch newState {
             case .failed(let error):
-                print("Browser - failed with %{public}@, restarting", error.localizedDescription)
+                print("Browser - failed with", error.localizedDescription)
                 self.browser.cancel()
             case .ready:
                 print("Browser ready")
@@ -43,22 +43,18 @@ class Browser {
         
         // Used to browse for discovered endpoints.
         browser.browseResultsChangedHandler = { results, changes in
-            for result in results {
-                let localDeviceIdentifier = UIDevice.current.name + "._test._tcplocal."
-                print("Browser - found matching endpoint with ", result.endpoint.debugDescription)
-                
-                if localDeviceIdentifier != result.endpoint.debugDescription {
-                    self.delegate?.foundEndpoint(endPoint: result.endpoint)
-                    break
-
+            let localDeviceIdentifier = UIDevice.current.name + "._test._tcplocal."
+            for change in changes {
+                if case .added(let added) = change, added.endpoint.debugDescription != localDeviceIdentifier {
+                    // If found endpoint is not the device itself, notify controller
+                    self.delegate?.foundEndpoint(endPoint: added.endpoint)
                 }
             }
+            
+            
         }
         
         browser.start(queue: browserQueue)
     }
-    
-    func cancelBrowsing() {
-        browser.cancel()
-    }
+
 }

@@ -7,23 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C842592524BDDBB700B229F2 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C842592424BDDBB700B229F2 /* Canvas.swift */; };
+		C84FEB5124BE09A2009B5AB7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84FEB5024BE09A2009B5AB7 /* Extensions.swift */; };
+		C84FEB5324BE384C009B5AB7 /* Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84FEB5224BE384C009B5AB7 /* Browser.swift */; };
 		C8F25E4224BCBF4100153279 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F25E4124BCBF4100153279 /* AppDelegate.swift */; };
-		C8F25E4424BCBF4100153279 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F25E4324BCBF4100153279 /* SceneDelegate.swift */; };
-		C8F25E4624BCBF4100153279 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F25E4524BCBF4100153279 /* ViewController.swift */; };
-		C8F25E4924BCBF4100153279 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8F25E4724BCBF4100153279 /* Main.storyboard */; };
+		C8F25E4624BCBF4100153279 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F25E4524BCBF4100153279 /* HomeVC.swift */; };
 		C8F25E4B24BCBF4900153279 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8F25E4A24BCBF4900153279 /* Assets.xcassets */; };
 		C8F25E4E24BCBF4900153279 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8F25E4C24BCBF4900153279 /* LaunchScreen.storyboard */; };
+		C8F25E5624BCDCD800153279 /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F25E5524BCDCD800153279 /* TCPClient.swift */; };
+		C8F25E5824BCDCE600153279 /* TCPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F25E5724BCDCE600153279 /* TCPServer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C842592424BDDBB700B229F2 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
+		C84FEB5024BE09A2009B5AB7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C84FEB5224BE384C009B5AB7 /* Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.swift; sourceTree = "<group>"; };
 		C8F25E3E24BCBF4100153279 /* CoDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8F25E4124BCBF4100153279 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C8F25E4324BCBF4100153279 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C8F25E4524BCBF4100153279 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C8F25E4824BCBF4100153279 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C8F25E4524BCBF4100153279 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		C8F25E4A24BCBF4900153279 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8F25E4D24BCBF4900153279 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8F25E4F24BCBF4900153279 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8F25E5524BCDCD800153279 /* TCPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPClient.swift; sourceTree = "<group>"; };
+		C8F25E5724BCDCE600153279 /* TCPServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPServer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +43,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C842592324BDDBAA00B229F2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C842592424BDDBB700B229F2 /* Canvas.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C84FEB5424BE6D2A009B5AB7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C84FEB5024BE09A2009B5AB7 /* Extensions.swift */,
+				C84FEB5224BE384C009B5AB7 /* Browser.swift */,
+				C8F25E5524BCDCD800153279 /* TCPClient.swift */,
+				C8F25E5724BCDCE600153279 /* TCPServer.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		C84FEB5724BE6D49009B5AB7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C8F25E4524BCBF4100153279 /* HomeVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		C8F25E3524BCBF4100153279 = {
 			isa = PBXGroup;
 			children = (
@@ -56,10 +89,10 @@
 		C8F25E4024BCBF4100153279 /* CoDraw */ = {
 			isa = PBXGroup;
 			children = (
+				C84FEB5724BE6D49009B5AB7 /* Controllers */,
+				C84FEB5424BE6D2A009B5AB7 /* Helpers */,
+				C842592324BDDBAA00B229F2 /* Views */,
 				C8F25E4124BCBF4100153279 /* AppDelegate.swift */,
-				C8F25E4324BCBF4100153279 /* SceneDelegate.swift */,
-				C8F25E4524BCBF4100153279 /* ViewController.swift */,
-				C8F25E4724BCBF4100153279 /* Main.storyboard */,
 				C8F25E4A24BCBF4900153279 /* Assets.xcassets */,
 				C8F25E4C24BCBF4900153279 /* LaunchScreen.storyboard */,
 				C8F25E4F24BCBF4900153279 /* Info.plist */,
@@ -127,7 +160,6 @@
 			files = (
 				C8F25E4E24BCBF4900153279 /* LaunchScreen.storyboard in Resources */,
 				C8F25E4B24BCBF4900153279 /* Assets.xcassets in Resources */,
-				C8F25E4924BCBF4100153279 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +170,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8F25E4624BCBF4100153279 /* ViewController.swift in Sources */,
+				C8F25E5824BCDCE600153279 /* TCPServer.swift in Sources */,
+				C84FEB5124BE09A2009B5AB7 /* Extensions.swift in Sources */,
+				C8F25E4624BCBF4100153279 /* HomeVC.swift in Sources */,
 				C8F25E4224BCBF4100153279 /* AppDelegate.swift in Sources */,
-				C8F25E4424BCBF4100153279 /* SceneDelegate.swift in Sources */,
+				C842592524BDDBB700B229F2 /* Canvas.swift in Sources */,
+				C8F25E5624BCDCD800153279 /* TCPClient.swift in Sources */,
+				C84FEB5324BE384C009B5AB7 /* Browser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C8F25E4724BCBF4100153279 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C8F25E4824BCBF4100153279 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C8F25E4C24BCBF4900153279 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -283,10 +311,11 @@
 		C8F25E5324BCBF4900153279 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = coDraw;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UBMMNQLYKL;
+				DEVELOPMENT_TEAM = 9MGPABDKC6;
 				INFOPLIST_FILE = CoDraw/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -301,10 +330,11 @@
 		C8F25E5424BCBF4900153279 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = coDraw;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UBMMNQLYKL;
+				DEVELOPMENT_TEAM = 9MGPABDKC6;
 				INFOPLIST_FILE = CoDraw/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

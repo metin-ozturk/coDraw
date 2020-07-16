@@ -15,7 +15,7 @@ class TCPClient {
     var connection : NWConnection
     var queue : DispatchQueue
         
-    init(clientName: String, endPoint: NWEndpoint) {
+    init(endPoint: NWEndpoint) {
         queue = DispatchQueue(label: "TCP Client Queue")
         
         let tcpOptions = NWParameters.tcp
@@ -37,47 +37,44 @@ class TCPClient {
                 break
             }
         }
+        
     }
     
     func startClient() {
         connection.start(queue: queue)
-        RunLoop.main.run()
     }
     
-    func cancelConnection() {
-        connection.cancel()
-    }
     
-//    private func sendData() {
-//        let helloMessage = "hello".data(using: .utf8)
-//
-//        connection.send(content: helloMessage, completion: .contentProcessed({ (error) in
-//            if let error = error {
-//                print("Error while sending data: ", error)
-//                return
-//            }
-//
-//        }))
-//
-//
-////        connection.receiveMessage { (content, context, isComplete, error) in
-////            if content != nil {
-////                print("Get Gonnected")
-////                self.delegate?.clientGetConnected()
-////            }
-////        }
-//    }
     
     func send(positions: [CGPoint]) {
+        // Send drawing coordinates in String format
         let positionsAsStrings = positions.compactMap { NSCoder.string(for: $0).data(using: .utf8) }
         sendData(data: positionsAsStrings, idx: 0)
 
     }
     
+    func send(canvasEditInfo: CanvasEdit){
+        // Send information whenever an edit action happens (clear, undo, changecolor)
+        
+        let cEInfo = String(canvasEditInfo.rawValue)
+        let cEInfoAsData = cEInfo.data(using: .utf8)
+
+        connection.send(content: cEInfoAsData, completion: NWConnection.SendCompletion.contentProcessed({ (error) in
+            if let error = error {
+                print("Error while sending position data: ", error)
+            }
+            
+            self.connection.cancel()
+        }))
+
+    }
+    
     
     private func sendData(data: [Data], idx: Int) {
+        // send data to found endpoint
         
         guard idx < data.count else {
+            // cancel connection when whole data is sent
             connection.cancel()
             return
         }

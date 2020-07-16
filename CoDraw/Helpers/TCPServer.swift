@@ -12,6 +12,9 @@ import UIKit
 
 protocol TCPServerDelegate : class {
     func positionsReceived(positions: [CGPoint])
+    func undoCommandReceived()
+    func clearCommandReceived()
+    func changeColorCommandReceived()
 }
 
 class TCPServer {
@@ -23,7 +26,7 @@ class TCPServer {
     
     init() {
         queue = DispatchQueue(label: "TCP Server Queue")
-        
+        // Set tcp service
         let tcpOptions = NWParameters.tcp
 //        tcpOptions.multipathServiceType = .interactive
         tcpOptions.includePeerToPeer = true
@@ -62,39 +65,45 @@ class TCPServer {
                 break
             }
         }
+        
     }
     
     func startServer() {
         listener.start(queue: queue)
+        
     }
     
     private func receive(on connection: NWConnection) {
         connection.receiveMessage { (content, context, isComplete, error) in
             if let content = content {
-//                if !self.connected {
-//                    connection.send(content: position, completion: .contentProcessed({ (error) in
-//                        if let error = error {
-//                            print("Error while echoing", error)
-//                            return
-//                        }
-//                        self.connected = true
-//                        self.delegate?.serverGetConnected()
-//                    }))
-//
-//                } else {
-//                    self.delegate?.serverGetConnected()
-//                }
-                let rPositionsAsString = String(decoding: content, as: UTF8.self)
-                let rPositionsAsArray = rPositionsAsString.split(separator: "{").map { String($0).replacingOccurrences(of: "}", with: "").removingWhitespaces()} // Positions in format: "11,23.5"
+                let rContent = String(decoding: content, as: UTF8.self)
                 
-                let rPositionsAsCGPointArray : [CGPoint] = rPositionsAsArray.map {
-                    let xCoordinateAsString = Double(String($0.split(separator: ",")[0])) ?? 0
-                    let yCoordinateAsString = Double(String($0.split(separator: ",")[1])) ?? 0
+                if let rContentAsInt = Int(rContent) {
+                    // Received content is Integer, that means an add edit action (clear, undo etc.) request has been made. Notify controller to make changes on canvas
+                    switch rContentAsInt {
+                    case 1:
+                        self.delegate?.undoCommandReceived()
+                    case 2:
+                        self.delegate?.clearCommandReceived()
+                    case 3:
+                        self.delegate?.changeColorCommandReceived()
+                    default:
+                        break
+                    }
+                } else {
+                    // received content is String which represent drawing coordinates. Parsing String to convert it to CGPoint format and notify controller
+                    let rPositionsAsArray = rContent.split(separator: "{").map { String($0).replacingOccurrences(of: "}", with: "").removingWhitespaces()} // Positions in format: "11,23.5"
                     
-                    return CGPoint(x: xCoordinateAsString, y: yCoordinateAsString)
+                    let rPositionsAsCGPointArray : [CGPoint] = rPositionsAsArray.map {
+                        let xCoordinateAsString = Double(String($0.split(separator: ",")[0])) ?? 0
+                        let yCoordinateAsString = Double(String($0.split(separator: ",")[1])) ?? 0
+                        
+                        return CGPoint(x: xCoordinateAsString, y: yCoordinateAsString)
+                    }
+                                    
+                    self.delegate?.positionsReceived(positions: rPositionsAsCGPointArray)
                 }
-                                
-                self.delegate?.positionsReceived(positions: rPositionsAsCGPointArray)
+
                 
                                 
                 if error == nil {

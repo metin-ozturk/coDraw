@@ -6,4 +6,9 @@
 //  Copyright © 2020 Jora. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+struct DrawUnit {
+    var coordinate : [CGPoint]
+    var color : UIColor
+}

@@ -9,15 +9,22 @@
 import UIKit
 
 protocol CanvasDelegate : class {
-    func lastLineBeingDrawn(lastLine: [CGPoint])
     func drawingCompleted(lastLine: [CGPoint])
     func drawingStarted()
+}
+
+enum CanvasEdit : Int {
+    case undo = 1
+    case clear = 2
+    case changeColor = 3
 }
 
 class Canvas : UIView {
     
     weak var delegate : CanvasDelegate?
     var lines = [[CGPoint]]()
+    
+    private var rStrokeColor : UIColor = .red
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,8 +36,14 @@ class Canvas : UIView {
         commonInit()
     }
     
+    
     private func commonInit() {
-        layer.borderColor = UIColor.black.cgColor
+        layer.borderColor = UIColor.white.cgColor
+        
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOpacity = 1
+        layer.shadowRadius = 10
+        
         layer.borderWidth = 1
         backgroundColor = .white
     }
@@ -41,6 +54,7 @@ class Canvas : UIView {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
         lines.forEach { line in
+            context.setStrokeColor(rStrokeColor.cgColor)
             for (idx, point) in line.enumerated() {
                 if idx == 0 {
                     context.move(to: point)
@@ -54,13 +68,33 @@ class Canvas : UIView {
         context.strokePath()
     }
     
-    func drawByPoints(points: [CGPoint]) {
-        lines.append([CGPoint]())
+    func undo() {
+        _ = lines.popLast()
+        setNeedsDisplay()
+    }
+    
+    func clear() {
+        lines.removeAll()
+        setNeedsDisplay()
+    }
+    
+    func changeColor() {
+        let randomColorIdx = Int.random(in: 0...5)
+        let randomColors : [UIColor] = [.red, .green, .blue, .black, .orange, .brown, .purple]
+        
+        rStrokeColor = randomColors.filter { $0 != rStrokeColor }[randomColorIdx]
+        
 
+        setNeedsDisplay()
+    }
+    
+    func drawByPoints(points: [CGPoint]) {
+        // draw when an edit action request has been made from peer in the network
+        lines.append([CGPoint]())
+        
         points.forEach {
             if var lastLine = lines.popLast() {
                 lastLine.append($0)
-                delegate?.lastLineBeingDrawn(lastLine: lastLine)
                 lines.append(lastLine)
             }
 
@@ -80,7 +114,6 @@ class Canvas : UIView {
             
             if var lastLine = lines.popLast() {
                 lastLine.append(touchedPoint)
-                delegate?.lastLineBeingDrawn(lastLine: lastLine)
                 lines.append(lastLine)
             }
 

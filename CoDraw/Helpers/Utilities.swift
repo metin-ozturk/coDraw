@@ -6,4 +6,8 @@
 //  Copyright © 2020 Jora. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class Utilities {
+    static let shared : Utilities = Utilities()
+}
