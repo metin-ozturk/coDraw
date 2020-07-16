@@ -18,21 +18,21 @@ class HomeVC: UIViewController {
         return canvas
     }()
     
-    private var undoButton : UIButton = {
+    private let undoButton : UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("UNDO", for: .normal)
         button.addTarget(self, action: #selector(undoButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private var clearButton : UIButton = {
+    private let clearButton : UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("CLEAR", for: .normal)
         button.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private var changeColorButton : UIButton = {
+    private let changeColorButton : UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("CHANGE COLOR", for: .normal)
         button.addTarget(self, action: #selector(changeColorButtonTapped), for: .touchUpInside)
@@ -104,7 +104,7 @@ class HomeVC: UIViewController {
             setAsClient()
         }
         
-        hClient?.send(canvasEditInfo: .clear)
+        hClient?.send(canvasEditInfo: .undo)
         DispatchQueue.main.async {
             self.canvas.undo()
         }
